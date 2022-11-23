@@ -1,0 +1,23 @@
+% extends "base_generic.html" %
+
+{% block content %}
+    {% for trainer in page_obj.trainer_list %}
+        <a href={{ trainer.link }}>
+            <div class="trainer">
+                {{ trainer.name }}
+            </div>
+        </a>
+
+        {% for class in trainer.classes}
+            <a href={{ class.link}}>
+                <div class="class">
+                    {{class.title}}
+                </div>
+                <div class="description">
+                    {{class.description}}
+                </div>
+            </a>
+        {% endfor %}
+    {% endfor &}
+
+{% endblock %}

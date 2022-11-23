@@ -16,7 +16,7 @@ class TrainingSession(models.Model):
     # time = DateTimeManager.getTime(dateTime)
     instructorID = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     maxParticipants = models.IntegerField(null=True)
-    participants = 
+    participants = models.JSONField(null=True)
 
     def __str__(self):
         return self.title
