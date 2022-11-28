@@ -44,6 +44,6 @@ class GroupClass(models.Model):
         return(self.maxParticipants < len(self.participants))
 
 class Session(models.Model):
-    # trainerID = models.ForeignKey(Trainer)
-    # traineeID = models.ForeignKey(Trainee)
+    trainerID = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=False, )
+    traineeID = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True)
     classID = models.ForeignKey(GroupClass, on_delete=models.DO_NOTHING)
