@@ -16,10 +16,16 @@ class TrainerData(models.Model):
     )
     bio = models.CharField(max_length=120)
 
+    def __str__(self):
+        return(self.id.username)
+
 class TraineeData(models.Model):
     id = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     weight = models.PositiveIntegerField()
     height = models.PositiveIntegerField()
+
+    def __str__(self):
+        return(self.id.username)
 
 class GroupClass(models.Model):
     title = models.CharField(max_length=15)
@@ -39,4 +45,6 @@ class GroupClass(models.Model):
 class Session(models.Model):
     traineeID = models.ManyToManyField(TraineeData)
     classID = models.ForeignKey(GroupClass, on_delete=models.DO_NOTHING)
-    
+
+    def __str__(self):
+        return(self.classID)
