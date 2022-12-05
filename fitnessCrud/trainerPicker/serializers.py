@@ -14,7 +14,6 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 
 class TrainerDataSerializer(serializers.Serializer):
     age = serializers.IntegerField(read_only=False)
-    id = serializers.IntegerField(source='id')
     gender = serializers.CharField(read_only=False)
     bio = serializers.CharField(read_only=False)
 

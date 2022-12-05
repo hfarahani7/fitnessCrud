@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, BaseUserManager, AbstractBaseUser
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -53,6 +54,38 @@ class Session(models.Model):
     def __str__(self):
         return(self.classID)
 
+
+class MyUserManager(BaseUserManager):
+    def create_user(self, email, date_of_birth, password=None):
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        user = self.model(
+            email=self.normalize_email(email)
+        )
+        user.save(using=self._db)
+
+class MyUser(AbstractBaseUser):
+    email = models.EmailField(
+        max_length=255,
+        unique=True,
+    )
+    firstName = models.CharField(max_length = 20)
+    lastName = models.CharField(max_length = 30)
+    
+    objects = MyUserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['firstName', 'lastName']
+
+    def __str__(self):
+        return(self.firstName + " " + self.lastName)
+    
+    def has_perm(self, perm, obj=None):
+        return True
+    
+    def has_module_perms(self, app_label):
+        return True
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):

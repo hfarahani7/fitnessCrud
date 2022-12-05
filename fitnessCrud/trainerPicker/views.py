@@ -1,25 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
+
+from rest_framework import viewsets
+from rest_framework import permissions
 
 from requests import Response
 
-from .models import GroupClass, Session
-from .serializers import UserSerializer
+from .models import TrainerData
+from .serializers import UserSerializer, TrainerDataSerializer
 
 def index(request):
     # return HttpResponse("trainerPicker")
-    pass
-
-def classSelector(request):
-    pass
-
-def trainerSelector(request):
-    pass
-
-def viewSchedule():
-    # queries Session entries, returns rows matching by trainer, trainee, datetime range, or  
     pass
 
 def create_user(ModelViewSet):
@@ -35,5 +28,14 @@ def create_user(ModelViewSet):
         else:
             return Response('Password did not match')
 
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class TrainerDataViewSet(viewsets.ModelViewSet):
+    queryset = TrainerData.objects.all()
+    serializer_class = TrainerDataSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 #q = GroupClass.objects.filter()

@@ -17,25 +17,14 @@ from django.contrib import admin
 from django.urls import include, path
 
 from django.contrib.auth.models import User
-from rest_framework import routers, serializers, viewsets
+from rest_framework import routers
 
 from trainerPicker import views as v
 from rest_framework.authtoken import views
 
-# Serializers define the API representation.
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ['url', 'username', 'email', 'is_staff']
-
-# ViewSets define the view behavior.
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-# Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
+router.register(r'users', v.UserViewSet)
+router.register(r'trainers', v.TrainerDataViewSet)
 
 
 urlpatterns = [
@@ -43,5 +32,6 @@ urlpatterns = [
     path('', include("django.contrib.auth.urls")),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api-token-auth/', views.obtain_auth_token),
-    path('create-user/', v.create_user)
+    path('create-user/', v.create_user),
+    path('', include(router.urls))
 ]
