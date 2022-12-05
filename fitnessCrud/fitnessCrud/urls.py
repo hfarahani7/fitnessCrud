@@ -25,6 +25,11 @@ from rest_framework.authtoken import views
 router = routers.DefaultRouter()
 router.register(r'users', v.UserViewSet)
 router.register(r'trainers', v.TrainerDataViewSet)
+router.register(r'trainees', v.TraineeDataViewSet)
+router.register(r'groupclass', v.GroupClassViewSet)
+router.register(r'session', v.SessionViewSet)
+
+
 
 
 urlpatterns = [

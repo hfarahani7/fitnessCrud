@@ -8,8 +8,8 @@ from rest_framework import permissions
 
 from requests import Response
 
-from .models import TrainerData
-from .serializers import UserSerializer, TrainerDataSerializer
+from .models import TrainerData, TraineeData, GroupClass, Session
+from .serializers import UserSerializer, TrainerDataSerializer, TraineeDataSerializer, GroupClassSerializer, SessionSerializer
 
 def index(request):
     # return HttpResponse("trainerPicker")
@@ -38,4 +38,18 @@ class TrainerDataViewSet(viewsets.ModelViewSet):
     serializer_class = TrainerDataSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+class TraineeDataViewSet(viewsets.ModelViewSet):
+    queryset = TraineeData.objects.all()
+    serializer_class = TraineeDataSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class GroupClassViewSet(viewsets.ModelViewSet):
+    queryset = GroupClass.objects.all()
+    serializer_class = GroupClassSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class SessionViewSet(viewsets.ModelViewSet):
+    queryset = Session.objects.all()
+    serializer_class = SessionSerializer
+    permission_classes = [permissions.IsAuthenticated]
 #q = GroupClass.objects.filter()
