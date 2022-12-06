@@ -15,19 +15,6 @@ def index(request):
     # return HttpResponse("trainerPicker")
     pass
 
-def create_user(ModelViewSet):
-    serializer_class = UserSerializer
-    query_set = User.objects.all()
-  
-    def perform_create(self, serializer):
-        password = self.request.data['password']
-        password2 = self.request.data['password2']
-        if (password==password2):
-            serializer.save()
-            return Response('User was created')
-        else:
-            return Response('Password did not match')
-
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer

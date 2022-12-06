@@ -20,7 +20,10 @@ from django.contrib.auth.models import User
 from rest_framework import routers
 
 from trainerPicker import views as v
+from trainerPicker import api
+
 from rest_framework.authtoken import views
+
 
 router = routers.DefaultRouter()
 router.register(r'users', v.UserViewSet)
@@ -29,14 +32,11 @@ router.register(r'trainees', v.TraineeDataViewSet)
 router.register(r'groupclass', v.GroupClassViewSet)
 router.register(r'session', v.SessionViewSet)
 
-
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("django.contrib.auth.urls")),
+    path('create-user/', api.CreateUserView.as_view()),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api-token-auth/', views.obtain_auth_token),
-    path('create-user/', v.create_user),
     path('', include(router.urls))
 ]
