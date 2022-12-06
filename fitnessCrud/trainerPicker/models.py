@@ -52,7 +52,7 @@ class Session(models.Model):
     classID = models.ForeignKey(GroupClass, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return(self.classID)
+        return(str(self.classID))
 
 
 class MyUserManager(BaseUserManager):
