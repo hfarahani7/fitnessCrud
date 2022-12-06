@@ -17,6 +17,11 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ( "id", "username", "password", )
 
+class UserReferenceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id']
+
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
@@ -26,6 +31,7 @@ class TrainerDataSerializer(serializers.Serializer):
     age = serializers.IntegerField(read_only=False)
     gender = serializers.CharField(read_only=False)
     bio = serializers.CharField(read_only=False)
+    id = UserReferenceSerializer()
 
     class Meta:
         model = TrainerData
@@ -48,7 +54,7 @@ class TraineeDataSerializer(serializers.Serializer):
 
     class Meta:
         model = TraineeData
-        fields = ('id', 'weight', 'height')
+        fields = ('id', 'weight', 'height', 'token')
     
     def create(self, validated_data):
         return TraineeData.objects.create(**validated_data)
